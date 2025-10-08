@@ -19,14 +19,6 @@ Ray tracing is a rendering technique used to generate highly realistic images by
 
 This raytracer implements advanced computer graphics concepts including ray-sphere intersection, recursive ray bouncing, progressive accumulation, and physically-based material properties. Built on the Walnut framework, it leverages Vulkan for GPU-accelerated rendering and Dear ImGui for immediate-mode user interface.
 
-The application follows a layered architecture with clear separation between rendering engine, scene management, and user interface:
-
-- **Application Layer**: Walnut framework providing Vulkan backend and window management
-- **UI Layer**: Dear ImGui integration for real-time parameter adjustment  
-- **Rendering Engine**: Core raytracer with progressive accumulation
-- **Scene Management**: Sphere primitives and material system
-
-### Framework Integration
 The project leverages the **Walnut Framework**, which provides:
 - Vulkan-based rendering backend for GPU acceleration
 - Dear ImGui integration for immediate-mode GUI
@@ -279,6 +271,8 @@ RayTracer/
 - Post-processing pipeline (tone mapping, bloom, DOF)
 - Asset streaming for large scenes
 
----
+## References
 
-*This project demonstrates computer graphics programming, mathematical algorithm implementation, and rendering optimization. The implementation showcases proficiency in C++, graphics programming, and software development.*
+- [*Ray Tracing in One Weekend* book series by Peter Shirley](https://raytracing.github.io/books/RayTracingInOneWeekend.html) — Foundational guide on implementing a basic CPU ray tracer from scratch
+- [*Real-Time Ray Tracing — Part 1* by Gimpy Software](https://gimpysoftware.com/index.php/tutorials/58-realtime-raytracing-part-1) — Explains the fundamentals of real-time ray tracing techniques
+- [*Walnut Framework* by The Cherno](https://github.com/StudioCherno/Walnut) — C++ application framework
