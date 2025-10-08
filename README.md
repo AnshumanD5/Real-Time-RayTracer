@@ -273,6 +273,6 @@ RayTracer/
 
 ## References
 
-- [*Ray Tracing in One Weekend* book series by Peter Shirley](https://raytracing.github.io/books/RayTracingInOneWeekend.html) — Foundational guide on implementing a basic CPU ray tracer from scratch
-- [*Real-Time Ray Tracing — Part 1* by Gimpy Software](https://gimpysoftware.com/index.php/tutorials/58-realtime-raytracing-part-1) — Explains the fundamentals of real-time ray tracing techniques
-- [*Walnut Framework* by The Cherno](https://github.com/StudioCherno/Walnut) — C++ application framework
+- [*Ray Tracing in One Weekend* book series by Peter Shirley](https://raytracing.github.io/books/RayTracingInOneWeekend.html) - Foundational guide on implementing a basic CPU ray tracer from scratch
+- [*Real-Time Ray Tracing — Part 1* by Gimpy Software](https://gimpysoftware.com/index.php/tutorials/58-realtime-raytracing-part-1) - Explains the fundamentals of real-time ray tracing techniques
+- [*Walnut Framework* by The Cherno](https://github.com/StudioCherno/Walnut) - C++ application framework
