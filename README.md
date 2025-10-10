@@ -1,6 +1,6 @@
 # Real-Time Raytracer
 
-A high-performance, interactive raytracer built in C++ using the Walnut framework (Vulkan + Dear ImGui). Features real-time ray tracing with progressive accumulation, physically-based materials, and interactive scene editing.
+A high-performance, interactive CPU-based raytracer built in C++ using the Walnut framework (Vulkan + Dear ImGui). Features real-time ray tracing with progressive accumulation, physically-based materials, and interactive scene editing.
 
 ![Raytracer Demo](demo/Raytracing-demo.gif)
 
@@ -17,7 +17,7 @@ A high-performance, interactive raytracer built in C++ using the Walnut framewor
 
 Ray tracing is a rendering technique used to generate highly realistic images by simulating the physical behavior of light as it interacts with objects in a 3D scene. It works by tracing the path of rays from the camera through each pixel on the screen and calculating how these rays intersect with scene geometry. Upon hitting a surface, additional rays may be spawned to simulate reflection and shadowing, allowing for the accurate depiction of lighting effects. Unlike rasterization, which approximates visibility and lighting, ray tracing computes light transport based on geometric and material data, producing photorealistic results at the cost of higher computational complexity.
 
-This raytracer implements computer graphics concepts including ray-object intersection, recursive ray casting, denoising, and physically-based material properties. Built on the Walnut framework, it uses Vulkan for the backend and Dear ImGui as an immediate-mode user interface.
+This raytracer implements computer graphics concepts including ray-object intersection, recursive ray casting, denoising, and physically-based material properties. Built on the Walnut framework, it uses Vulkan for the backend and Dear ImGui as an immediate-mode user interface. Note that this raytracer is CPU based, for simplicity. I plan to port it to the GPU in the future, which is the intended hardware for an application like this.
 
 The project leverages the **Walnut Framework**, which provides:
 - Vulkan-based rendering backend (Image creation and GPU texture management)
