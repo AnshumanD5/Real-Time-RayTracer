@@ -68,7 +68,7 @@ The ray tracing process begins with generating rays for each pixel on the screen
 
 When a ray encounters geometry in the scene, the intersection testing phase kicks in. For sphere primitives, I use the classic quadratic equation approach where the ray equation is substituted into the sphere's mathematical definition. The discriminant tells me whether an intersection occurs, and if multiple spheres are hit, I sort by distance to find the closest surface. This ensures proper depth ordering and realistic occlusion behavior.
 
-Once a valid intersection point is found, the shading system takes over. Surface normals are computed by normalizing the vector from the sphere center to the hit point. The lighting calculation uses a simple directional light model with dot product evaluation, though the material system adds complexity through albedo, roughness, and metallic parameters that influence how light bounces off surfaces.
+Once a valid intersection point is found, the shading system takes over. Surface normals are computed by normalizing the vector from the sphere center to the hit point. The lighting calculation uses a simple directional light model with dot product evaluation, though the material system adds complexity through albedo and roughness parameters that influence how light bounces off surfaces.
 
 The real magic happens during recursive ray bouncing. When a ray hits a surface, I spawn additional reflection rays based on the material properties. Rougher materials scatter rays more randomly, while smooth surfaces produce mirror-like reflections. Each bounce carries less 'energy' than the previous one, simulating how light naturally loses intensity as it bounces around a scene. I limit this to 5 bounces to prevent infinite recursion while still capturing complex lighting interactions.
 
@@ -178,7 +178,7 @@ m_AccumulationData[pixelIndex] += currentFrameColor;
 glm::vec4 finalColor = m_AccumulationData[pixelIndex] / (float)m_FrameIndex;
 ```
 
-This technique reduces noise and improves image quality over time by averaging multiple samples per pixel.
+This technique reduces noise and improves image quality over time by averaging multiple samples per pixel. Basically, the image converges towards its most "accurate self" as more samples come in.
 
 ## Performance Optimizations
 
