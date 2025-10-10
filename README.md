@@ -15,15 +15,15 @@ A high-performance, interactive raytracer built in C++ using the Walnut framewor
 
 ## Technical Overview
 
-Ray tracing is a rendering technique used to generate highly realistic images by simulating the physical behavior of light as it interacts with objects in a 3D scene. It works by tracing the path of rays from the camera through each pixel on the screen and calculating how these rays intersect with scene geometry. Upon hitting a surface, additional rays may be spawned to simulate reflection, refraction, and shadowing, allowing for the accurate depiction of lighting effects such as global illumination, soft shadows, and caustics. Unlike rasterization, which approximates visibility and lighting, ray tracing computes light transport based on geometric and material data, producing photorealistic results at the cost of higher computational complexity.
+Ray tracing is a rendering technique used to generate highly realistic images by simulating the physical behavior of light as it interacts with objects in a 3D scene. It works by tracing the path of rays from the camera through each pixel on the screen and calculating how these rays intersect with scene geometry. Upon hitting a surface, additional rays may be spawned to simulate reflection and shadowing, allowing for the accurate depiction of lighting effects. Unlike rasterization, which approximates visibility and lighting, ray tracing computes light transport based on geometric and material data, producing photorealistic results at the cost of higher computational complexity.
 
-This raytracer implements advanced computer graphics concepts including ray-sphere intersection, recursive ray bouncing, progressive accumulation, and physically-based material properties. Built on the Walnut framework, it leverages Vulkan for GPU-accelerated rendering and Dear ImGui for immediate-mode user interface.
+This raytracer implements computer graphics concepts including ray-object intersection, recursive ray casting, denoising, and physically-based material properties. Built on the Walnut framework, it uses Vulkan for the backend and Dear ImGui as an immediate-mode user interface.
 
 The project leverages the **Walnut Framework**, which provides:
-- Vulkan-based rendering backend for GPU acceleration
-- Dear ImGui integration for immediate-mode GUI
+- Vulkan-based rendering backend (Image creation and GPU texture management)
+- Dear ImGui integration for immediate-mode GUI (useful for performance stats and making real-time changes to the scene)
 - Cross-platform window management and input handling
-- Image creation and GPU texture management
+- Provides GLFW and GLM (OpenGL's math library)
 
 ## Core Components
 
@@ -47,7 +47,7 @@ private:
 ### 2. Scene Management
 The scene consists of:
 - **Spheres**: Geometric primitives with position, radius, and material index
-- **Materials**: PBR materials with albedo, roughness, and metallic properties
+- **Materials**: PBR materials with albedo and roughness properties
 - **Camera**: View frustum and ray generation parameters
 
 ### 3. Material System
@@ -56,7 +56,6 @@ Physically-based material properties:
 struct Material {
     glm::vec3 Albedo;    // Base color/reflectance
     float Roughness;     // Surface roughness (0.0 = mirror, 1.0 = diffuse)
-    float Metallic;      // Metallic workflow parameter
 };
 ```
 
@@ -65,7 +64,7 @@ struct Material {
 ![Ray tracing showing camera, view ray, light source, shadow ray, and scene object](images/raytracing-diagram.png "Ray Tracing Pipeline")
 
 
-The ray tracing process begins with generating rays for each pixel on the screen. Starting from the camera position, I calculate ray directions using a pre-computed buffer that maps screen coordinates to 3D directions in world space. Each ray carries an origin point and a normalized direction vector that determines where it travels through the scene.
+The ray tracing process begins with generating rays for each pixel on the screen. Starting from the camera position, I calculate ray directions using a pre-computed buffer that maps screen coordinates to 3D directions in world space. To clarify, the camera system precomputes ray directions per pixel based on field-of-view and aspect ratio. When the user moves or rotates the camera, it recalculates these directions to avoid recomputing projection math during rendering. Next, each ray carries an origin point and a normalized direction vector that determines where it travels through the scene.
 
 When a ray encounters geometry in the scene, the intersection testing phase kicks in. For sphere primitives, I use the classic quadratic equation approach where the ray equation is substituted into the sphere's mathematical definition. The discriminant tells me whether an intersection occurs, and if multiple spheres are hit, I sort by distance to find the closest surface. This ensures proper depth ordering and realistic occlusion behavior.
 
@@ -183,7 +182,7 @@ This technique reduces noise and improves image quality over time by averaging m
 
 ## Performance Optimizations
 
-### Multi-threading Architecture
+### Multi-threading
 The code includes parallel execution:
 ```cpp
 #define MT 0  // Multi-threading toggle
@@ -206,7 +205,6 @@ The progressive refinement system is one of my favorite features. In accumulatio
 ### Material Properties
 - **Albedo**: Base surface color/reflectance
 - **Roughness**: Controls reflection sharpness (perfect mirror to completely diffuse)
-- **Metallic**: Determines metallic vs. dielectric behavior
 
 Through Dear ImGui panels, you can adjust sphere positions and radii in real-time, watching as shadows and reflections update instantly. Material sliders let you experiment with different surface properties. Performance monitoring shows frame times and render statistics for understanding the computational cost of different scene configurations.
 
@@ -263,6 +261,7 @@ RayTracer/
 
 ## Possible Future Improvements
 
+- Porting to the GPU to achieve true parallelism (could use CUDA)
 - BVH acceleration structures for complex scenes
 - Temporal and spatial denoising algorithms
 - Advanced PBR materials with normal mapping
