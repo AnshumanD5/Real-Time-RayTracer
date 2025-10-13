@@ -169,9 +169,8 @@ float closestT = (-b - glm::sqrt(discriminant)) / (2.0f * a);
 
 This gives the first point of intersection along the ray.
 
-### Progressive Accumulation Algorithm
+### Denoising
 
-**Temporal Anti-Aliasing through Frame Accumulation**:
 ```cpp
 // Accumulate color samples
 m_AccumulationData[pixelIndex] += currentFrameColor;
